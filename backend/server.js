@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth.routes.js";
-// import applicationRoutes from "./routes/application.routes.js";
+import applicationRoutes from "./routes/application.routes.js";
 
 dotenv.config();
 const app = express();
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 //Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api/applications", applicationRoutes);
+app.use("/api/applications", applicationRoutes);
 
 // Health check
 app.get("/", (req, res) => res.json({ status: "API running" }));

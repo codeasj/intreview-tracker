@@ -26,7 +26,10 @@ const applicationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    jobDescription:String,
+   
+      jobDescriptionUrl: String,
+  jobDescriptionText: String,
+
     status: {
         type: String,
         enum: ["applied", "screening", "interview", "offer", "rejected", "ghosted"],
@@ -38,7 +41,7 @@ const applicationSchema = new mongoose.Schema({
     },
     interviews: [interviewSchema],
     notes: String,
-    Salary: String,
+    salary: String,
      
 },{timestamps: true});
 

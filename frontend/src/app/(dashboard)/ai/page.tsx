@@ -92,7 +92,7 @@ export default function AIChatPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] w-full">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4">
+      <div className="flex flex-col gap-3 pb-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <BsRobot className="w-5 h-5 text-slate-700" />
           <h1 className="text-xl font-bold text-slate-900">
@@ -133,6 +133,7 @@ export default function AIChatPage() {
             <div className="grid grid-cols-1 gap-2 w-full max-w-lg">
               {SUGGESTED_PROMPTS.map((prompt) => (
                 <button
+                  type="button"
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
                   className="text-left text-sm px-4 py-2.5 rounded-lg border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition-colors text-slate-600"
@@ -186,7 +187,7 @@ export default function AIChatPage() {
 
       {/* Input */}
       <div className="border-t pt-4">
-        <div className="flex gap-2 items-end">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -200,7 +201,7 @@ export default function AIChatPage() {
             onClick={() => sendMessage()}
             disabled={!input.trim() || loading}
             size="sm"
-            className="h-10 px-4 flex-shrink-0"
+            className="h-10 px-4 w-full sm:w-auto flex-shrink-0"
           >
             <BsSend className="w-4 h-4" />
           </Button>

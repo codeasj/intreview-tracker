@@ -53,7 +53,7 @@ export default function ApplicationsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Applications</h1>
           <p className="text-slate-500 mt-1">
@@ -68,8 +68,8 @@ export default function ApplicationsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-3">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="relative flex-1 sm:max-w-sm">
           <BsSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
           <Input
             placeholder="Search company or role..."
@@ -82,7 +82,7 @@ export default function ApplicationsPage() {
           value={statusFilter}
           onValueChange={(val) => setStatusFilter(val as Status | "all")}
         >
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full sm:w-40">
             <SelectValue placeholder="Filter status">
               {selectedStatusLabel}
             </SelectValue>

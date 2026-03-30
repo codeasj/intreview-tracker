@@ -12,6 +12,7 @@ import {
   BsPlusCircle,
   BsRobot,
   BsBoxArrowRight,
+  BsX,
 } from "react-icons/bs";
 import { cn } from "@/lib/utils";
 
@@ -38,26 +39,50 @@ const navItems = [
   },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  className?: string;
+  onNavigate?: () => void;
+  showClose?: boolean;
+}
+
+export default function Sidebar({
+  className,
+  onNavigate,
+  showClose = false,
+}: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
 
   const handleLogout = async () => {
     await logout();
+    onNavigate?.();
     router.push("/login");
   };
 
   return (
-    <aside className="sticky top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col">
+    <aside
+      className={cn(
+        "bg-white border-r border-slate-200 flex flex-col",
+        className,
+      )}
+    >
       {/* Logo */}
-      <div className="p-6">
+      <div className="flex items-center justify-between p-6">
         <div className="flex items-center gap-2">
           <BsBriefcase className="w-6 h-6 text-slate-700" />
-          <span className="font-bold text-slate-900 text-lg">
-            InterviewAI
-          </span>
+          <span className="font-bold text-slate-900 text-lg">InterviewAI</span>
         </div>
+        {showClose && (
+          <button
+            type="button"
+            onClick={onNavigate}
+            className="rounded-md p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+            aria-label="Close menu"
+          >
+            <BsX className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       <Separator />
@@ -69,7 +94,7 @@ export default function Sidebar() {
           const isActive = pathname === item.href;
 
           return (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} onClick={onNavigate}>
               <div
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",

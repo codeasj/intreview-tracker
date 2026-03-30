@@ -74,7 +74,7 @@ export default function ApplicationDetailPage() {
 
       <Card>
         <CardContent className="p-6">
-          <div className="flex items-start justify-between gap-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <BsBuilding className="h-5 w-5 text-slate-400" />
@@ -104,13 +104,13 @@ export default function ApplicationDetailPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-end gap-3">
+            <div className="flex flex-col gap-3 lg:items-end">
               <StatusBadge status={application.status} />
               <Select
                 value={application.status}
                 onValueChange={(value) => handleStatusChange(value as Status)}
               >
-                <SelectTrigger className="w-40 text-sm">
+                <SelectTrigger className="w-full sm:w-40 text-sm">
                   <SelectValue>{statusLabels[application.status]}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>

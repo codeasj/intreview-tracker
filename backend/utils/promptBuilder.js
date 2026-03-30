@@ -22,19 +22,19 @@ Write only the email, nothing else.`;
 export const buildFollowUpPrompt = (application) => {
   const { company, role, appliedDate, interviews } = application;
 
-  const lastInterview = interviews?.length > 0
-    ? interviews[interviews.length - 1]
-    : null;
+  const lastInterview =
+    interviews?.length > 0 ? interviews[interviews.length - 1] : null;
 
   return `You are an expert job application coach helping a developer write a follow-up email.
 
 Company: ${company}
 Role: ${role}
 Applied Date: ${new Date(appliedDate).toDateString()}
-${lastInterview
+${
+  lastInterview
     ? `Last Interview Round: ${lastInterview.round} on ${new Date(lastInterview.date).toDateString()}`
     : "Status: Applied, no interview yet"
-  }
+}
 
 Write a professional follow-up email.
 The email should:
@@ -58,16 +58,34 @@ ${jobDescriptionText ? `Job Description: ${jobDescriptionText}` : ""}
 
 Generate 10 interview questions this candidate is likely to face.
 Split them into these categories:
-1. Technical Questions (5) — based on the role and JD
-2. System Design (2) — architecture and design thinking
-3. Behavioural Questions (3) — situation based
+1. Technical Questions (5) - based on the role and job description
+2. System Design (2) - architecture and design thinking
+3. Behavioural Questions (3) - situation based
 
-For each question also write a brief tip (1 line) on how to approach the answer.
+For each question also write a brief one-line tip on how to approach the answer.
 
-Format:
-**Category Name**
-Q1. [question]
-Tip: [approach tip]
+Format the response exactly like this:
+
+**Technical Questions**
+
+**Q1.** [question]
+**Tip:** [approach tip]
+
+**Q2.** [question]
+**Tip:** [approach tip]
+
+**System Design**
+
+**Q1.** [question]
+**Tip:** [approach tip]
+
+**Behavioural Questions**
+
+**Q1.** [question]
+**Tip:** [approach tip]
+
+Use bold formatting for every category name, every question label like **Q1.**, and every **Tip:** label.
+Leave one blank line between every question block.
 
 Write only the questions, nothing else.`;
 };
@@ -82,11 +100,15 @@ Job Description:
 ${jobDescription}
 
 Provide structured feedback:
-1. Match Score (out of 10) — how well resume matches JD
-2. Strong Points (3 bullet points) — what stands out
-3. Missing Skills — skills in JD not shown in resume
-4. Suggested Improvements (3 bullet points) — specific resume changes
-5. One Line Summary — overall assessment
+1. Match Score (out of 10) - how well resume matches JD
+2. Strong Points (3 bullet points) - what stands out
+3. Missing Skills - skills in JD not shown in resume
+4. Suggested Improvements (3 bullet points) - specific resume changes
+5. One Line Summary - overall assessment
+
+Write the feedback directly to the candidate using "you" and "your".
+Do not refer to the candidate by name.
+Do not use third person words like "he", "she", "they", or the candidate's name.
 
 Be honest and specific. No generic advice.`;
 };

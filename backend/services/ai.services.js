@@ -6,6 +6,7 @@ const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
 const AI_PROVIDER = process.env.AI_PROVIDER || "gemini";
 
+//Non Streaming
 const callOpenAI = async (prompt, temperature = 0.7) => {
   const openai = getOpenAIClient();
   const response = await openai.chat.completions.create({
@@ -31,4 +32,50 @@ export const callAI = async (prompt, temperature = 0.7) => {
     return await callOpenAI(prompt, temperature);
   }
   return await callGemini(prompt, temperature);
+};
+
+// Streaming 
+export const streamAI = async (prompt, temperature = 0.7, res) => {
+  // Set SSE headers
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+  res.flushHeaders(); //send header immediately
+
+  if (AI_PROVIDER === "openai") {
+    const openai = getOpenAIClient();
+    const stream = await openai.chat.completions.create({
+      model: OPENAI_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature,
+      stream: true, 
+    });
+
+    for await (const chunk of stream) {
+      const text = chunk.choices[0]?.delta?.content || "";
+      if (text) {
+        res.write(`data: ${JSON.stringify({ text })}\n\n`);
+      }
+    }
+
+  } else {
+    // Gemini streaming
+    const gemini = getGeminiClient();
+    const stream = await gemini.models.generateContentStream({
+      model: GEMINI_MODEL,
+      contents: prompt,
+      config: { temperature },
+    });
+
+    for await (const chunk of stream) {
+      const text = chunk.text || "";
+      if (text) {
+        res.write(`data: ${JSON.stringify({ text })}\n\n`);
+      }
+    }
+  }
+
+  // done
+  res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+  res.end();
 };

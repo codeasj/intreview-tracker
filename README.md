@@ -1,6 +1,6 @@
 ﻿# Interview Tracker
 
-Interview Tracker is a full stack project I built to manage job applications in one place and add a few AI features that are actually useful during a job search. The app lets a user track applications, update interview rounds, view dashboard stats, and use AI for things like cold emails, follow ups, interview questions, resume feedback, and general job search help.
+Interview Tracker is a full stack SaaS style project built to manage the job search workflow end to end. It combines application tracking, interview round management, dashboard analytics, and AI powered features in a single product. From a technical side, the project includes JWT based authentication, protected CRUD APIs, file upload and PDF parsing, provider based AI integration with OpenAI and Gemini, and streaming responses for chat and generation features.
 
 ## Live Demo
 
@@ -184,10 +184,6 @@ I kept the AI layer provider based, so I can switch between Gemini and OpenAI th
 For auth, I used JWT with HTTP only cookies instead of storing tokens in localStorage. For data access, queries are scoped by `userId` so one user cannot read or update another user’s applications.
 
 For resume feedback, PDFs are uploaded in memory and parsed into text before being sent to the model. That keeps the feature simple without adding file storage.
-
-## Screenshots
-
-I will add screenshots here after deployment.
 
 ## Author
 

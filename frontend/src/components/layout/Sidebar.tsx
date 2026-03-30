@@ -49,7 +49,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-white border-r border-slate-200 flex flex-col">
+    <aside className="sticky top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col">
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export default function Sidebar() {
       <Separator />
 
       {/* Nav */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;

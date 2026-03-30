@@ -180,7 +180,7 @@ POST   /api/ai/chat
 
 ## A few implementation details I liked
 
-I kept the AI layer provider based, so I can switch between Gemini and OpenAI through environment variables without changing application code. I also used streaming responses for the AI assistant and the email and question generators so the UI feels more responsive while text is being generated.
+I kept the AI layer provider based, so I can switch between Gemini and OpenAI through environment variables without changing application code. I also used streaming responses for the AI assistant and the email and question generators so the UI feels more responsive while text is being generated. For chat, I used a small sliding context window so only recent messages are sent to the model, which helps keep token usage and response cost under control.
 
 For auth, I used JWT with HTTP only cookies instead of storing tokens in localStorage. For data access, queries are scoped by `userId` so one user cannot read or update another user’s applications.
 

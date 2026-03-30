@@ -31,6 +31,9 @@ export default function ApplicationsPage() {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<Status | "all">("all");
+  const selectedStatusLabel =
+    statusOptions.find((opt) => opt.value === statusFilter)?.label ||
+    "Filter status";
 
   useEffect(() => {
     fetchApplications();
@@ -80,7 +83,9 @@ export default function ApplicationsPage() {
           onValueChange={(val) => setStatusFilter(val as Status | "all")}
         >
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="Filter status" />
+            <SelectValue placeholder="Filter status">
+              {selectedStatusLabel}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {statusOptions.map((opt) => (

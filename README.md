@@ -4,8 +4,9 @@ Interview Tracker is a full stack SaaS style project built to manage the job sea
 
 ## Live Demo
 
-Frontend: [Vercel URL here]  
-Backend: [Render URL here]
+Frontend: https://ai-intreview-tracker.vercel.app
+
+Backend: https://ai-intreview-tracker.onrender.com
 
 ## What the app does
 

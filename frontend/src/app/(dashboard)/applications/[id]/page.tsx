@@ -89,7 +89,7 @@ export default function ApplicationDetailPage() {
                   <BsCalendar className="h-3 w-3" />
                   Applied {format(new Date(application.appliedDate), "dd MMM yyyy")}
                 </span>
-                {application.salary && <span>{application.salary}</span>}
+                {application.salary && <span>₹ {application.salary}</span>}
                 {application.jobDescriptionUrl && (
                   <a
                     href={application.jobDescriptionUrl}

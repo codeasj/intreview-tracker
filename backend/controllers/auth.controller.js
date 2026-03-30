@@ -10,11 +10,13 @@ const generateToken = (userId) => {
 const sendTokenResponse = (user, res) => {
   const token = generateToken(user._id);
   const isProduction = process.env.NODE_ENV === "production";
+  const apiDomain = process.env.API_URL?.split("//")[1];
   const cookieOptions = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    domain: isProduction ? apiDomain : "localhost",
   };
 
   res.cookie("token", token, {
@@ -64,11 +66,13 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
+    const apiDomain = process.env.API_URL?.split("//")[1];
     res.cookie("token", "", {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
       maxAge: 0,
+      domain: isProduction ? apiDomain : "localhost",
     });
     res.json({ success: true, message: "Logged out successfully" });
 }
